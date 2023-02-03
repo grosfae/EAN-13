@@ -19,7 +19,7 @@
                 </Style>
             </StackPanel.Resources>
             <TextBox x:Name="txtBox" HorizontalAlignment="Center" Background="LightBlue" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" HorizontalContentAlignment="Center" 
-                     VerticalContentAlignment="Center" Height="40" Margin="0 40 0 60" FontSize="15" FontWeight="DemiBold" SpellCheck.IsEnabled="True" TextChanged="txtBox_TextChanged"/>
+                     VerticalContentAlignment="Center" Height="40" Margin="0 40 0 60" FontSize="15" FontWeight="DemiBold" SpellCheck.IsEnabled="True" TextChanged="txtBox_TextChanged" MaxLength="13" PreviewTextInput="TextBox_PreviewTextInput"/>
 
             <Border Height="252" Width="349" BorderBrush="Black" BorderThickness="1">
                 <InkCanvas x:Name="barcodeCan" Height="250" Width="347" Background="White" EditingMode="GestureOnly" IsEnabled="False">

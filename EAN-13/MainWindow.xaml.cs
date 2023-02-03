@@ -30,6 +30,7 @@ namespace EAN_13
             InitializeComponent();
             FillDict();
             Load("0000000000000");
+            CbBasement.ItemsSource = App.DB.BarCode.ToList();
         }
 
         private Rectangle copyRec(Rectangle rec)

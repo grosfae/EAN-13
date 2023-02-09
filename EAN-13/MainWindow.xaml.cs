@@ -265,7 +265,7 @@ namespace EAN_13
             try
             {
 
-                Load(txtBox.Text);
+                
 
             }
             catch
@@ -285,6 +285,63 @@ namespace EAN_13
                 txtBox.SelectionStart = txtBox.Text.Length;
             }
             
+        }
+
+        private void BarCodeGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            int buff = 0;
+            int debuff = 0;
+            int res = 0;
+            string itog = "";
+            if (txtBox.Text.Length == 13)
+            {
+                try
+                {
+                    for (int i = 1; i < 12; i += 2)
+                    {
+                        buff += int.Parse(txtBox.Text.Substring(i, 1));
+                    }
+                    buff *= 3;
+                    for (int i = 0; i < 12; i += 2)
+                    {
+                        debuff += int.Parse(txtBox.Text.Substring(i, 1));
+                    }
+                    res = buff + debuff;
+                    if (res.ToString().Length == 3)
+                    {
+                        itog = res.ToString().Remove(0, 2);
+                        
+                    }
+                    if (res.ToString().Length == 2)
+                    {
+                        itog = res.ToString().Remove(0, 1);
+                    }
+                    if(res.ToString().Length == 1)
+                    {
+                        itog = res.ToString();
+                    }
+                    res = 10 - int.Parse(itog);
+                    
+                    txtBox.Text = $"{txtBox.Text.Substring(0,12) + res.ToString()}";
+                     
+                    Load($"{txtBox.Text}");
+                    //Load({txtBox.Text.Replace(txtBox.Text.Substring(12, 1), res.ToString()));
+                }
+                catch
+                {
+
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Введите еще {13 - txtBox.Text.Length} цифр");
+                return;
+            }
+        }
+
+        private void CbBasement_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txtBox.Text = CbBasement.SelectedItem.ToString();
         }
     }
 }

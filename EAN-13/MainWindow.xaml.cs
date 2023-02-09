@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EAN_13.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -259,20 +260,6 @@ namespace EAN_13
             barcodeCan.Children.Add(rect5);
             barcodeCan.Children.Add(rect6);
         }
-
-        private void txtBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            try
-            {
-
-                
-
-            }
-            catch
-            {
-
-            }
-        }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (Regex.IsMatch(e.Text, @"[0-9]") == false)
@@ -325,7 +312,6 @@ namespace EAN_13
                     txtBox.Text = $"{txtBox.Text.Substring(0,12) + res.ToString()}";
                      
                     Load($"{txtBox.Text}");
-                    //Load({txtBox.Text.Replace(txtBox.Text.Substring(12, 1), res.ToString()));
                 }
                 catch
                 {
@@ -334,14 +320,22 @@ namespace EAN_13
             }
             else
             {
-                MessageBox.Show($"Введите еще {13 - txtBox.Text.Length} цифр");
-                return;
+                if (txtBox.Text.Length > 13)
+                {
+                    MessageBox.Show($"Штрих-код слишком большой, уберите {txtBox.Text.Length-13} значений");
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show($"Введите еще {13 - txtBox.Text.Length} значений");
+                    return;
+                }
             }
         }
 
         private void CbBasement_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            txtBox.Text = CbBasement.SelectedItem.ToString();
+            txtBox.Text = (CbBasement.SelectedItem as BarCode).ValueOfCode.ToString();
         }
     }
 }
